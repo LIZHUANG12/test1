@@ -1,0 +1,39 @@
+workflows:
+  android-workflow:
+    name: Chinese Novel Game Android Build
+    max_build_duration: 60
+    environment:
+      vars:
+        PACKAGE_NAME: "com.novelgame"
+        GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx1536m -Dorg.gradle.daemon=false"
+      java: 11
+    cache:
+      cache_paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
+    scripts:
+      - name: Set up environment
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+          mkdir -p ~/.android
+          echo 'count=0' > ~/.android/repositories.cfg
+      
+      - name: Clean and prepare
+        script: |
+          chmod +x ./gradlew
+          ./gradlew clean --info
+      
+      - name: Build Android APK
+        script: |
+          ./gradlew assembleDebug --info --no-daemon
+    
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+    
+    publishing:
+      email:
+        recipients:
+          - build@example.com
+        notify:
+          success: true
+          failure: true

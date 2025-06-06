@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">中文小说错别字修改游戏</string>
+    <string name="action_reload">重新加载</string>
+    <string name="action_reset">重置游戏</string>
+    <string name="loading">游戏加载中...</string>
+    <string name="game_reset">游戏已重置</string>
+    <string name="game_loaded">游戏加载完成</string>
+</resources>
